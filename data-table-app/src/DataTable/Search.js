@@ -1,11 +1,13 @@
+import "./style.css";
+
 const Search = (props) => {
     return (
-        <div>
+        <div className="cmp__search">
             <input
                 type="text"
                 name="search"
                 autoComplete="off"
-                placeholder="search"
+                placeholder="Search"
                 onChange={(e) => props.setSearchTerm(e.target.value)}
             ></input>
         </div>

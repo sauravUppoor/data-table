@@ -2,13 +2,18 @@ import useSort from "./util/useSort";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
-import { useEffect } from "react/cjs/react.development";
+
+import "./style.css";
 
 const Table = (props) => {
-    let [rows, toggleSort] = useSort(props.rows);
+    let [rows, sortColumn, resetSortColumn, toggleSort] = useSort(props.rows);
     return (
         <table>
-            <TableHead columns={props.columns} toggleSort={toggleSort} />
+            <TableHead
+                columns={props.columns}
+                toggleSort={toggleSort}
+                sortColumn={sortColumn}
+            />
             <TableBody rows={rows} />
         </table>
     );

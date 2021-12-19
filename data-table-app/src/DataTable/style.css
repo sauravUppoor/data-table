@@ -1,0 +1,94 @@
+:root {
+    --primary: #341f97;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+body {
+    margin: 30px;
+}
+
+input,
+select {
+    padding: 8px 10px;
+    margin: 10px;
+    border: 0.5px solid;
+    border-radius: 4px;
+}
+
+label {
+    padding: 8px;
+    margin: 10px -5px 10px 10px;
+    color: var(--primary);
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 40px auto;
+    text-align: center;
+}
+
+th {
+    border-right: 1px solid #fff;
+    height: 40px;
+    background-color: var(--primary);
+}
+
+th > button {
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+th:first-child {
+    border-top-left-radius: 8px;
+}
+
+th:last-child {
+    border-top-right-radius: 8px;
+}
+
+tr,
+td {
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f2f2f2;
+}
+
+.filter__nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn__primary {
+    padding: 5px 10px;
+    margin: 5px;
+    font-weight: 600;
+    color: var(--primary);
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+.btn__primary:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.cmp__search {
+    margin-right: 100px;
+}

@@ -1,9 +1,13 @@
 import { useState } from "react";
 
+import "./style.css";
+
 const Filter = (props) => {
+    // information about current selected column and row value
     let [selectedColumn, setSelectedColumn] = useState("none");
     let [selectedRowValue, setSelectedRowValue] = useState("none");
 
+    // detect and update filters when cleared
     const clearFilter = (e) => {
         props.setFilteredRows("");
         setSelectedColumn("none");
@@ -31,7 +35,7 @@ const Filter = (props) => {
                 onChange={changeColumn}
             >
                 <option value="none" disabled hidden>
-                    Select a Column
+                    Select column
                 </option>
                 {props.columns.map((column, idx) => (
                     <option key={idx} value={column}>
@@ -58,7 +62,9 @@ const Filter = (props) => {
                 ))}
             </select>
 
-            <button onClick={clearFilter}>Clear Filter</button>
+            <button onClick={clearFilter} className="btn__primary">
+                Clear Filter
+            </button>
         </>
     );
 };

@@ -1,5 +1,7 @@
 import TableRow from "./TableRow";
 
+import "./style.css";
+
 const TableBody = (props) => {
     return (
         <tbody>

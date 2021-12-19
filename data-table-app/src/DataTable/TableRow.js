@@ -1,3 +1,5 @@
+import "./style.css";
+
 const TableRow = (props) => {
     return (
         <tr>

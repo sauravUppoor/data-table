@@ -6,7 +6,7 @@ const Search = (props) => {
                 name="search"
                 autoComplete="off"
                 placeholder="search"
-                onChange={props.setSearchTerm}
+                onChange={(e) => props.setSearchTerm(e.target.value)}
             ></input>
         </div>
     );

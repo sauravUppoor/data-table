@@ -1,13 +1,34 @@
 import { useState } from "react";
 
 const Filter = (props) => {
+    let [selectedColumn, setSelectedColumn] = useState("none");
+    let [selectedRowValue, setSelectedRowValue] = useState("none");
+
+    const clearFilter = (e) => {
+        props.setFilteredRows("");
+        setSelectedColumn("none");
+        setSelectedRowValue("none");
+    };
+
+    const changeColumn = (e) => {
+        let columnValue = e.target.value;
+        props.generateRowValues(columnValue);
+        setSelectedColumn(columnValue);
+    };
+
+    const changeRowValue = (e) => {
+        let rowValue = e.target.value;
+        props.setFilteredRows(rowValue);
+        setSelectedRowValue(rowValue);
+    };
+
     return (
         <>
             <label htmlFor="columns">Column</label>
             <select
                 name="column"
-                defaultValue={"none"}
-                onChange={(e) => props.generateRowValues(e)}
+                value={selectedColumn}
+                onChange={changeColumn}
             >
                 <option value="none" disabled hidden>
                     Select a Column
@@ -18,11 +39,12 @@ const Filter = (props) => {
                     </option>
                 ))}
             </select>
+
             <label htmlFor="rowValues">Value</label>
             <select
                 name="rowValues"
-                defaultValue={"none"}
-                onChange={(e) => props.setFilteredRows(e)}
+                value={selectedRowValue}
+                onChange={changeRowValue}
             >
                 {
                     <option value="none" disabled hidden>
@@ -35,6 +57,8 @@ const Filter = (props) => {
                     </option>
                 ))}
             </select>
+
+            <button onClick={clearFilter}>Clear Filter</button>
         </>
     );
 };

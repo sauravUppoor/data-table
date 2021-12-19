@@ -1,38 +1,29 @@
 import useSearch from "./util/useSearch";
+import useFilter from "./util/useFilter";
+import intersection from "./util/util";
 
 import Table from "./Table";
 import Search from "./Search";
 import Filter from "./Filter";
+import { useState, useEffect } from "react";
 
-import { useState } from "react";
 const TableContainer = (props) => {
-    let [matchedRows, setSearchTerm, setSearchColumn] = useSearch(props.rows);
+    let [displayRows, setDisplayRows] = useState(props.rows);
 
-    let [selectedColumn, setSelectedColumn] = useState("");
-    let [rowValuesOfSelectedColumn, setRowValuesOfSelectedColumn] = useState(
-        []
+    let [matchedRows, setMatchedRows, setSearchTerm, setColumns] = useSearch(
+        props.rows
     );
-    let [selectedRowValue, setSelectedRowValue] = useState("");
-    let [filteredRows, setFilterValue, setColumnValue] = useSearch(
-        matchedRows,
-        selectedRowValue,
-        selectedColumn
-    );
-    const generateRowValues = (event) => {
-        setSelectedColumn(event.target.value);
-        let rowValues = [];
-        for (const row of props.rows) {
-            rowValues.push(row[selectedColumn]);
-        }
-        rowValues = [...new Set(rowValues)];
-        setRowValuesOfSelectedColumn(rowValues);
-    };
 
-    const setFilteredRows = (event) => {
-        setSelectedRowValue(event.target.value);
-        setFilterValue(selectedRowValue);
-        setColumnValue(selectedColumn);
-    };
+    let [
+        filteredRows,
+        rowValuesOfSelectedColumn,
+        generateRowValues,
+        setFilteredRows,
+    ] = useFilter(props.rows);
+
+    useEffect(() => {
+        setDisplayRows(intersection(matchedRows, filteredRows));
+    }, [matchedRows, filteredRows]);
 
     return (
         <>
@@ -40,13 +31,13 @@ const TableContainer = (props) => {
             {!props.disableFilter && (
                 <Filter
                     columns={props.columns}
-                    rows={filteredRows}
+                    rows={props.rows}
                     rowValues={rowValuesOfSelectedColumn}
                     generateRowValues={generateRowValues}
                     setFilteredRows={setFilteredRows}
                 />
             )}
-            <Table columns={props.columns} rows={matchedRows} pageSize />
+            <Table columns={props.columns} rows={displayRows} pageSize />
         </>
     );
 };

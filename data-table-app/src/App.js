@@ -23,7 +23,7 @@ const App = () => {
         {
             Player: "Anish Giri",
             Rating: "2700",
-            Coach: "Barstad",
+            Coach: "Vidit Gujrati",
         },
     ];
 

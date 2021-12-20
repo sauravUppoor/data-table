@@ -8,9 +8,11 @@ import { useEffect } from "react/cjs/react.development";
  * @param rows : Array<obj> - containing original data
  * @returns
  *      filteredRows : Array<obj> - rows selected after applying filteredRows
- *      rowValuesOfSelectedColumn : Array<string> - row values of column selectedRowValue
+ *      selectedColumn : string - colummnName that is selected from dropdown
+ *      rowValuesOfSelectedColumn : Array<string> - row values of corresponding selectedColumn
+ *      selectedRowValue : string - row value from rowValuesOfSelectedColumn
  *      generateRowValues : func(column value) - selected column value from dropdown
- *      setFilteredRows : func(row value) - selected row value from dropdown
+ *      setFilteredRows : func(row value) - generate filteredRows from selected row value from dropdown
  */
 const useFilter = (rows) => {
     let [selectedColumn, setSelectedColumn] = useState("");
@@ -33,7 +35,7 @@ const useFilter = (rows) => {
     const setFilteredRows = (newRowValue) => {
         setSelectedRowValue(newRowValue);
 
-        // "" implies clearing filter
+        // "none" implies clearing filter
         if (newRowValue === "") {
             setRowValuesOfSelectedColumn([]);
             setRowsForFiltering(rows);
@@ -61,7 +63,9 @@ const useFilter = (rows) => {
 
     return [
         filteredRows,
+        selectedColumn,
         rowValuesOfSelectedColumn,
+        selectedRowValue,
         generateRowValues,
         setFilteredRows,
     ];

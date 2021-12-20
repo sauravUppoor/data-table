@@ -1,40 +1,15 @@
-import { useState } from "react";
-
 import "./style.css";
 
 const Filter = (props) => {
-    // information about current selected column and row value
-    let [selectedColumn, setSelectedColumn] = useState("none");
-    let [selectedRowValue, setSelectedRowValue] = useState("none");
-
-    // detect and update filters when cleared
-    const clearFilter = (e) => {
-        props.setFilteredRows("");
-        setSelectedColumn("none");
-        setSelectedRowValue("none");
-    };
-
-    const changeColumn = (e) => {
-        let columnValue = e.target.value;
-        props.generateRowValues(columnValue);
-        setSelectedColumn(columnValue);
-    };
-
-    const changeRowValue = (e) => {
-        let rowValue = e.target.value;
-        props.setFilteredRows(rowValue);
-        setSelectedRowValue(rowValue);
-    };
-
     return (
         <>
             <label htmlFor="columns">Column</label>
             <select
                 name="column"
-                value={selectedColumn}
-                onChange={changeColumn}
+                value={props.selectedColumn}
+                onChange={(e) => props.generateRowValues(e.target.value)}
             >
-                <option value="none" disabled hidden>
+                <option value="" disabled hidden>
                     Select column
                 </option>
                 {props.columns.map((column, idx) => (
@@ -47,11 +22,11 @@ const Filter = (props) => {
             <label htmlFor="rowValues">Value</label>
             <select
                 name="rowValues"
-                value={selectedRowValue}
-                onChange={changeRowValue}
+                value={props.selectedRowValue}
+                onChange={(e) => props.setFilteredRows(e.target.value)}
             >
                 {
-                    <option value="none" disabled hidden>
+                    <option value="" disabled hidden>
                         Select row value
                     </option>
                 }
@@ -62,7 +37,10 @@ const Filter = (props) => {
                 ))}
             </select>
 
-            <button onClick={clearFilter} className="btn__primary">
+            <button
+                onClick={(e) => props.setFilteredRows("")}
+                className="btn__primary"
+            >
                 Clear Filter
             </button>
         </>

@@ -5,7 +5,7 @@ import intersection from "./util/util";
 import Table from "./Table";
 import Search from "./Search";
 import Filter from "./Filter";
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 
 import "./style.css";
 
@@ -21,13 +21,15 @@ const TableContainer = (props) => {
     // rows which satisfy the filter condition
     let [
         filteredRows,
+        selectedColumn,
         rowValuesOfSelectedColumn,
+        selectedRowValue,
         generateRowValues,
         setFilteredRows,
     ] = useFilter(props.rows);
 
     // track and find intersection of both filter and searched rows
-    useMemo(() => {
+    useEffect(() => {
         setDisplayRows(intersection(matchedRows, filteredRows));
     }, [matchedRows, filteredRows]);
 
@@ -41,7 +43,9 @@ const TableContainer = (props) => {
                     <Filter
                         columns={props.columns}
                         rows={props.rows}
+                        selectedColumn={selectedColumn}
                         rowValues={rowValuesOfSelectedColumn}
+                        selectedRowValue={selectedRowValue}
                         generateRowValues={generateRowValues}
                         setFilteredRows={setFilteredRows}
                         className="cmp__filter"
